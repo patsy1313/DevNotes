@@ -1,0 +1,36 @@
+What is an arrow function in Javascript?
+
+* It's a block of code
+* It allows the developer to leverage "this"
+* Used all the time with observables
+
+function doSomething(aValue: number, aDocId: number) {
+    //DO NOT USE THESE BECAUSE "this" refers to something else
+    console.log('Hi pops!!');
+}
+
+(aValue: number, aDocId: number) => {
+    //USE THESE because referring to "this" works
+    console.log('Hi mamma!!');
+}
+
+export class MyComponent {
+    public constructor(private myLookupService: MyLookupService) {}
+
+    (aValue: number, aDocId: number) => {
+        this.myLookupService.refreshData();
+    }
+
+    private refreshData(): void {
+        ...
+    }
+
+    //Executes the REST call -- because we are calling subscribe
+    //Observable = Lazy Stream
+
+    this.myLookupService.getPriorities().subscribe( (aData: MyLookupDTO[]) => {
+        //The REST call returned data, move on
+        this.priorities = aData;
+    })
+
+}
